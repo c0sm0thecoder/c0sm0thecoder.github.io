@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kamu's Tech Portfolio</title>
+    <title>Kamal Aghazada</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <link
@@ -226,6 +226,83 @@
         color: var(--neon-purple);
         font-size: 0.8rem;
       }
+
+      @media screen and (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .section {
+          padding: 1rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .terminal-prompt {
+          font-size: 0.9rem;
+        }
+
+        .skills-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .experience-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .experience-date {
+          margin-top: 0.25rem;
+        }
+
+        .contact-icons {
+          gap: 1.5rem;
+        }
+
+        .contact-icons a {
+          font-size: 1.75rem;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section h2 {
+          font-size: 1.25rem;
+        }
+
+        .experience-title {
+          font-size: 1.1rem;
+        }
+
+        .terminal-prompt {
+          font-size: 0.8rem;
+        }
+
+        .project h3 {
+          font-size: 1.1rem;
+        }
+
+        .contact-icons {
+          gap: 1rem;
+        }
+
+        .contact-icons a {
+          font-size: 1.5rem;
+        }
+
+        #loading-text {
+          font-size: 1.2rem;
+          text-align: center;
+          padding: 0 1rem;
+        }
+
+        #loading-bar {
+          width: 80%;
+          max-width: 300px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -407,9 +484,7 @@
         </section>
       </div>
 
-      <footer>
-        © 2024 Developer Manifesto | Thank you GPT!
-      </footer>
+      <footer>© 2024 Developer Manifesto | Thank you GPT!</footer>
     </div>
 
     <script>
