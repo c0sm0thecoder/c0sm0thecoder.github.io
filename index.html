@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kamu's Tech Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --neon-green: #39ff14;
+        --neon-blue: #00ffff;
+        --neon-purple: #ff00ff;
+        --dark-bg: #0a0a1a;
+        --mid-bg: rgba(26, 26, 46, 0.8);
+      }
+      * {
+        user-select: none;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body,
+      html {
+        height: 100%;
+        font-family: "Monaco", "Courier New", monospace;
+        background-color: var(--dark-bg);
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+      header {
+        background-color: var(--mid-bg);
+        padding: 1.5rem;
+        text-align: center;
+        border-bottom: 2px solid var(--neon-green);
+        box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+        position: relative;
+        z-index: 10;
+      }
+      .terminal-prompt {
+        color: var(--neon-green);
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      .cursor {
+        display: inline-block;
+        background-color: var(--neon-green);
+        width: 10px;
+        height: 20px;
+        animation: blink 1s infinite;
+      }
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--dark-bg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      #loading-text {
+        color: var(--neon-green);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      #loading-bar {
+        width: 300px;
+        height: 20px;
+        background-color: rgba(57, 255, 20, 0.2);
+        border: 2px solid var(--neon-green);
+      }
+      #loading-progress {
+        width: 0;
+        height: 100%;
+        background-color: var(--neon-green);
+        transition: width 2s ease-in-out;
+      }
+      #background-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+      }
+      #vanta-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+      #main-content {
+        display: none;
+        position: relative;
+        z-index: 10;
+      }
+      .experience-item {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background-color: rgba(57, 255, 20, 0.1);
+        border-left: 3px solid var(--neon-green);
+      }
+
+      .experience-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-title {
+        color: var(--neon-green);
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      .experience-date {
+        color: var(--neon-purple);
+        font-size: 0.9rem;
+      }
+
+      .experience-company {
+        color: var(--neon-blue);
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-description {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .experience-description li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.2rem;
+        position: relative;
+      }
+
+      .experience-description li::before {
+        content: ">";
+        position: absolute;
+        left: 0;
+        color: var(--neon-green);
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      .section {
+        background-color: var(--mid-bg);
+        border-left: 5px solid var(--neon-blue);
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+      .section:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      }
+      .section h2 {
+        color: var(--neon-purple);
+        border-bottom: 2px solid var(--neon-purple);
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+      .skill-badge {
+        background-color: rgba(255, 0, 255, 0.2);
+        border: 1px solid var(--neon-purple);
+        padding: 0.5rem;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+      .project {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background-color: rgba(57, 255, 20, 0.1);
+        border-left: 3px solid var(--neon-green);
+      }
+      .project h3 {
+        color: var(--neon-green);
+      }
+      .contact-icons {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+      .contact-icons a {
+        color: var(--neon-blue);
+        font-size: 2rem;
+        transition: transform 0.3s ease;
+      }
+      footer {
+        text-align: center;
+        padding: 1rem;
+        background-color: rgba(26, 26, 46, 0.8);
+        color: var(--neon-purple);
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <span class="terminal-prompt">kamal@aghazada:~/nice-to-meet-you $</span>
+      <span class="cursor"></span>
+    </header>
+
+    <div id="loading-screen">
+      <div id="loading-text">Bootstrapping portfolio environment...</div>
+      <div id="loading-bar">
+        <div id="loading-progress"></div>
+      </div>
+    </div>
+
+    <div id="vanta-background"></div>
+
+    <div id="main-content">
+      <div class="container">
+        <section class="section">
+          <h2>About Me</h2>
+          <p>
+            I'm a software developer with an expertise in backend development
+            and a passion for solving complex problems and building scalable
+            solutions. I thrive on optimizing performance, designing robust
+            systems, and diving into AI and low-level programming. My goal is
+            always clean, efficient code and innovative solutions. When I'm not
+            coding, you'd probably find me trying to explain to my coffee why
+            it's the real MVP of my productivity.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>Work Experience</h2>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <span class="experience-title">Software Engineer</span>
+              <span class="experience-date">Oct 2024 - Present</span>
+            </div>
+            <div class="experience-company">AZAI TECH, Baku</div>
+            <ul class="experience-description">
+              <li>
+                Redesigned interservice communication in a microservices
+                architecture (JavaScript, Python, C++) by replac- ing WebSocket
+                with RabbitMQ, enhancing message durability, task queue
+                persistence, and system reliability during shutdowns.
+              </li>
+              <li>
+                Developed and optimized OCR solutions to extract and process
+                text data from images with high accuracy using Python and C++.
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <span class="experience-title">Backend Developer</span>
+              <span class="experience-date">Dec 2023 - June 2024</span>
+            </div>
+            <div class="experience-company">Cupzz, Remote</div>
+            <ul class="experience-description">
+              <li>
+                Designed and implemented scalable RESTful APIs for a
+                subscription-based application using Django REST Framework,
+                ensuring seamless integration and user-centric functionality.
+              </li>
+              <li>
+                Optimized performance by configuring Redis for OTP caching,
+                reducing database load and significantly im- proving user
+                verification speed.
+              </li>
+              <li>
+                Customized and secured user authentication by developing
+                tailored user models for regular users and adminis- trators,
+                streamlining account management and enhancing security across
+                API endpoints.
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <span class="experience-title">Backend Development Trainee</span>
+              <span class="experience-date">Apr 2023 - June 2023</span>
+            </div>
+            <div class="experience-company">PASHA Bank, Baku</div>
+            <ul class="experience-description">
+              <li>
+                Participated in DevZone Learning Session which included
+                intensive Java Spring Boot back-end development learning
+                sessions, honing skills in building robust and scalable web
+                applications.
+              </li>
+              <li>
+                Acquired knowledge and skills in Java SE, OOP principles, Spring
+                Boot, Building REST APIs, PostgreSQL, Databases in Web
+                Applications, Unit testing with Spock.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Technical Skills</h2>
+          <div class="skills-grid">
+            <div class="skill-badge">Go</div>
+            <div class="skill-badge">Python</div>
+            <div class="skill-badge">Java</div>
+            <div class="skill-badge">C</div>
+            <div class="skill-badge">C++</div>
+            <div class="skill-badge">SQL (PostgreSQL, MySQL)</div>
+            <div class="skill-badge">AI/ML</div>
+            <div class="skill-badge">Node.js</div>
+            <div class="skill-badge">Django</div>
+            <div class="skill-badge">Spring Boot</div>
+            <div class="skill-badge">Docker</div>
+            <div class="skill-badge">Redis</div>
+            <div class="skill-badge">RabbitMQ</div>
+            <div class="skill-badge">Linux</div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Notable Projects</h2>
+          <div class="project">
+            <h3>RSS Aggregator</h3>
+            <p>
+              Developed an RSS aggregator service with Go, enabling users to
+              subscribe to multiple feeds and receive real-time updates every
+              minute.
+            </p>
+          </div>
+          <div class="project">
+            <h3>Coffee Shop Subscription App</h3>
+            <p>
+              Created a backend service for a coffeshop subscription app with
+              Django REST Framework, adding Swagger for API documentation and
+              Redis caching for efficient OTP management, along with custom user
+              models for secure authentication.
+            </p>
+          </div>
+          <div class="project">
+            <h3>All-In-One Reservation System</h3>
+            <p>
+              Developed an all-in-one reservation system for multiple services
+              at a time allowing the service providers to manage their
+              availability and bookings efficiently. Used microservices
+              architecture for developing the system.
+            </p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Contact & Connect</h2>
+          <div class="contact-icons">
+            <a
+              href="mailto:kamalaghzada@gmail.com"
+              title="Email"
+              target="”_blank”"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a
+              href="https://github.com/c0sm0thecoder"
+              title="GitHub"
+              target="”_blank”"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a
+              href="https://linkedin.com/in/kamalaghazada/"
+              title="LinkedIn"
+              target="”_blank”"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://t.me/cosmootto" title="Telegram" target="_blank"
+              ><i class="fab fa-telegram"></i
+            ></a>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        © 2024 Developer Manifesto | Thank you GPT!
+      </footer>
+    </div>
+
+    <script>
+      // Loading Screen
+      window.addEventListener("load", () => {
+        const vantaEffect = VANTA.NET({
+          el: "#vanta-background",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: window.innerHeight,
+          minWidth: window.innerWidth,
+          scale: 1.0,
+          scaleMobile: 1.0,
+          color: 0x8d3fff,
+          backgroundColor: 0x0a0a1a,
+          points: 15.0,
+          maxDistance: 25.0,
+          spacing: 17.0,
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", () => {
+          vantaEffect.resize();
+        });
+        const loadingScreen = document.getElementById("loading-screen");
+        const mainContent = document.getElementById("main-content");
+        const loadingProgress = document.getElementById("loading-progress");
+        const loadingText = document.getElementById("loading-text");
+
+        // Simulate loading
+        loadingProgress.style.width = "100%";
+
+        setTimeout(() => {
+          loadingText.textContent =
+            "Initialization complete. Portfolio is now live!!";
+
+          setTimeout(() => {
+            loadingScreen.style.display = "none";
+            mainContent.style.display = "block";
+          }, 1000);
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
