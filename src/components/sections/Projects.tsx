@@ -31,7 +31,7 @@ const projects = [
     ],
     icon: <Bot className="w-8 h-8 text-cyan-500" />,
     github: "https://github.com/c0sm0thecoder/rag-news-analyst",
-    image: null,
+    image: '',
   },
   {
     title: "CLI Based Chat Application",
@@ -135,7 +135,7 @@ export default function Projects() {
                   {projects[activeProject].image ? "Preview" : "Sample"}
                 </h4>
 
-                {projects[activeProject].image ? (
+                {projects[activeProject].image !== '' ? (
                   // Show image if available
                   <div className="bg-[#252525] rounded-lg p-4 overflow-hidden">
                     <img
