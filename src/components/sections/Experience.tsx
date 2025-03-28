@@ -11,9 +11,9 @@ const experiences = [
     period: 'Oct 2024 - Present',
     achievements: [
       'Replaced WebSocket with RabbitMQ in microservices (JS, Python, C++), enhancing messaging durability.',
+      'Developed and optimized OCR solutions in Python and C++ for high-accuracy text extraction.',
       'Implemented a JavaScript service (PM2-managed) for automated system change monitoring.',
-      'Constructed a back-end service for AI software using Go’s Gin framework.',
-      'Implemented modern CI/CD workflows, reducing deployment time by 60%'
+      'Constructed a back-end service for AI software using Go’s Gin framework.'
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-purple-500 to-pink-500',
