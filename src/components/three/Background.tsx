@@ -7,7 +7,8 @@ import * as random from 'maath/random';
 
 function Stars() {
   const ref = useRef<any>();
-  const sphere = random.inSphere(new Float32Array(5000), { radius: 1.5 });
+  // Fix: Explicitly cast to Float32Array
+  const sphere = random.inSphere(new Float32Array(5000), { radius: 1.5 }) as Float32Array;
 
   useFrame((state, delta) => {
     ref.current.rotation.x -= delta / 10;
