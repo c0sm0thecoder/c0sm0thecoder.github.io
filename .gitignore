@@ -1,0 +1,13 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Build outputs
+/.next/
+/out/
+node_modules
+node_modules
+
+# VSCode
+/.vscode
