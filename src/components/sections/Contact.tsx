@@ -134,21 +134,21 @@ export default function Contact() {
             className="mt-12 flex justify-center space-x-6"
           >
             <motion.a
-              href="#"
+              href="https://github.com/c0sm0thecoder"
               whileHover={{ scale: 1.2 }}
               className="text-gray-400 hover:text-white"
             >
               <Github size={24} />
             </motion.a>
             <motion.a
-              href="#"
+              href="https://www.linkedin.com/in/kamalaghazada/"
               whileHover={{ scale: 1.2 }}
               className="text-gray-400 hover:text-white"
             >
               <Linkedin size={24} />
             </motion.a>
             <motion.a
-              href="mailto:contact@example.com"
+              href="mailto:kamalaghzada@gmail.com"
               whileHover={{ scale: 1.2 }}
               className="text-gray-400 hover:text-white"
             >
