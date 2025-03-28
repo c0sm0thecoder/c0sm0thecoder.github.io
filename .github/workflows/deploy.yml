@@ -26,28 +26,21 @@ jobs:
       - name: Build
         run: npm run build
         
-      - name: Create output directory if it doesn't exist
-        run: mkdir -p .next/out
+      - name: List directories to check output
+        run: |
+          echo "Current directory contents:"
+          ls -la
+          echo "Checking for out directory:"
+          ls -la | grep out || echo "No out directory found"
         
-      - name: Check output directory structure
-        run: |
-          echo "Listing .next directory:"
-          ls -la .next/
-          echo "Checking if 'out' directory exists:"
-          ls -la . | grep out || echo "No out directory at root"
-          
       - name: Add .nojekyll file
-        run: |
-          if [ -d "out" ]; then
-            touch out/.nojekyll
-          elif [ -d ".next/out" ]; then
-            touch .next/out/.nojekyll
-          else
-            touch .next/.nojekyll
-          fi
-
+        run: touch out/.nojekyll
+        
+      - name: Create CNAME file
+        run: echo "kamalaghazada.codes" > out/CNAME  # REPLACE with your actual domain
+        
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .next
+          folder: out
           branch: gh-pages
