@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Modern Portfolio',
-  description: 'A modern portfolio website built with Next.js and React Three Fiber',
+  title: 'Kamal Aghazada',
+  description: 'Backend developer with a deep expertise in AI-powered systems',
 };
 
 export default function RootLayout({
