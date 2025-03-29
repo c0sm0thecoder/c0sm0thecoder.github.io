@@ -8,9 +8,30 @@ const navItems = ['Home', 'About', 'Skills', 'Experience', 'Services', 'Projects
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      
+      // Determine which section is currently in view
+      const sections = navItems.map(item => document.getElementById(item.toLowerCase()));
+      const scrollPosition = window.scrollY + 100; // Offset to trigger slightly earlier
+      
+      const currentSection = sections
+        .filter(section => section)
+        .find(section => {
+          if (!section) return false;
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          return scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight;
+        });
+      
+      if (currentSection) {
+        setActiveSection(currentSection.id);
+      }
+    };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -28,10 +49,28 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id.toLowerCase());
+    const sectionId = id.toLowerCase();
+    const element = document.getElementById(sectionId);
+    
+    console.log(`Attempting to scroll to section: ${sectionId}`); // Debug info
+    
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Close the menu before scrolling
       setIsMobileMenuOpen(false);
+      
+      // Minor delay to ensure menu closing animation doesn't affect scroll
+      setTimeout(() => {
+        const navHeight = document.querySelector('nav')?.offsetHeight || 0;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - navHeight;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }, 300);
+    } else {
+      console.error(`Section with ID ${sectionId} not found`); // Debug info
     }
   };
 
@@ -50,7 +89,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('home')}
           >
-            {/* You can add your logo or name here */}
+            {/* Logo or name */}
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -59,7 +98,11 @@ export default function Navbar() {
               <motion.button
                 key={item}
                 whileHover={{ scale: 1.1 }}
-                className="text-gray-300 hover:text-white transition-colors"
+                className={`transition-colors ${
+                  activeSection === item.toLowerCase()
+                    ? "text-white" 
+                    : "text-gray-300 hover:text-white"
+                }`}
                 onClick={() => scrollToSection(item.toLowerCase())}
               >
                 {item}
@@ -86,7 +129,11 @@ export default function Navbar() {
             <motion.button
               key={item}
               whileHover={{ scale: 1.05 }}
-              className="text-gray-300 hover:text-white transition-colors py-3"
+              className={`transition-colors py-3 ${
+                activeSection === item.toLowerCase()
+                  ? "text-white" 
+                  : "text-gray-300 hover:text-white"
+              }`}
               onClick={() => scrollToSection(item.toLowerCase())}
             >
               {item}

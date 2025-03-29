@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Calendar, Briefcase } from 'lucide-react';
 
 const experiences = [
@@ -13,7 +13,7 @@ const experiences = [
       'Replaced WebSocket with RabbitMQ in microservices (JS, Python, C++), enhancing messaging durability.',
       'Developed and optimized OCR solutions in Python and C++ for high-accuracy text extraction.',
       'Implemented a JavaScript service (PM2-managed) for automated system change monitoring.',
-      'Constructed a back-end service for AI software using Go’s Gin framework.'
+      'Constructed a back-end service for AI software using Go\'s Gin framework.'
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-purple-500 to-pink-500',
@@ -24,9 +24,9 @@ const experiences = [
     period: 'Jun 2024 - Jan 2025',
     achievements: [
       'Co-founded an AI-driven inventory management startup focused on sustainability and data-driven decision-making.',
-      'Secured 2nd place in the ”Green Fintech Startup Challenge” by the International Bank of Azerbaijan.',
-      'Finalist in Google’s ”Build with AI for Sustainable Growth” hackathon in Kazakhstan.',
-      'Finalist in the ”Global Green Startup Challenge” organized by SABAH.HUB and ABB at COP29.'
+      'Secured 2nd place in the "Green Fintech Startup Challenge" by the International Bank of Azerbaijan.',
+      'Finalist in Google\'s "Build with AI for Sustainable Growth" hackathon in Kazakhstan.',
+      'Finalist in the "Global Green Startup Challenge" organized by SABAH.HUB and ABB at COP29.'
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-cyan-500 to-blue-500',
@@ -46,10 +46,14 @@ const experiences = [
 
 export default function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
   return (
     <section id="experience" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0c0c0c] to-[#0a0a0a] -z-10" />
+      <div className="absolute inset-0 -z-10" />
       
       <div className="container mx-auto px-4">
         <motion.h2
@@ -63,24 +67,44 @@ export default function Experience() {
         </motion.h2>
         
         <div ref={containerRef} className="max-w-5xl mx-auto relative">
-          {/* Side timeline - hidden on mobile */}
+          {/* Side timeline - ONLY visible on desktop */}
           <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-purple-500 to-cyan-500 transform translate-x-[-50%]" />
           
           {/* Experience items */}
           {experiences.map((exp, index) => {
+            // Create unique scroll progress for each item
+            const startProgress = index / experiences.length;
+            const endProgress = (index + 1) / experiences.length;
+            
+            const opacity = useTransform(
+              scrollYProgress, 
+              [startProgress - 0.3, startProgress, endProgress, endProgress + 0.3], 
+              [0, 1, 1, 0]
+            );
+            
+            const scale = useTransform(
+              scrollYProgress,
+              [startProgress - 0.2, startProgress, endProgress, endProgress + 0.2],
+              [0.8, 1, 1, 0.8]
+            );
+            
+            const y = useTransform(
+              scrollYProgress,
+              [startProgress - 0.4, startProgress, endProgress, endProgress + 0.4],
+              [50, 0, 0, -50]
+            );
+            
             const isEven = index % 2 === 0;
             
             return (
               <motion.div
                 key={exp.company}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                viewport={{ once: true, margin: "-100px" }}
-                className={`mb-16 relative 
-                  pl-6 border-l-2 border-purple-500/50
-                  md:border-l-0 md:pl-0
-                  ${isEven ? 'md:pl-0 md:pr-12 md:ml-auto md:mr-[50%]' : 'md:pl-12 md:pr-0 md:ml-[50%] md:mr-0'}`}
+                style={{ opacity, scale, y }}
+                className={`mb-8 md:mb-16 relative w-full ${
+                  isEven 
+                    ? 'md:w-[calc(50%-24px)] md:ml-auto md:mr-[50%] md:pr-12 md:pl-0' 
+                    : 'md:w-[calc(50%-24px)] md:ml-[50%] md:mr-0 md:pl-12 md:pr-0'
+                }`}
               >
                 <motion.div
                   whileHover={{ translateY: -5 }}
@@ -118,11 +142,8 @@ export default function Experience() {
                   </ul>
                 </motion.div>
                 
-                {/* Timeline dot with pulse effect */}
-                <div className={`absolute top-6 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 border-4 border-[#0a0a0a]
-                  -left-[11px]
-                  md:left-auto 
-                  ${isEven ? 'md:right-[-2.5px]' : 'md:left-[-2.5px]'}`}>
+                {/* Timeline dot with pulse effect - ONLY visible on desktop */}
+                <div className={`hidden md:block absolute top-6 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 border-4 border-[#0a0a0a] ${isEven ? 'right-[-2.5px]' : 'left-[-2.5px]'}`}>
                   <span className="absolute inset-0 rounded-full animate-ping bg-purple-500 opacity-50"></span>
                 </div>
               </motion.div>

@@ -64,23 +64,19 @@ export default function Projects() {
     setActiveProject((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
   };
 
-  // Handle drag end to determine if we should navigate
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) => {
-    const swipeThreshold = 50; // Minimum pixels to trigger a swipe
+    const swipeThreshold = 50;
 
     if (info.offset.x > swipeThreshold) {
-      // Swiped right, go to previous
       prevProject();
     } else if (info.offset.x < -swipeThreshold) {
-      // Swiped left, go to next
       nextProject();
     }
   };
 
-  // Get the indices of the previous and next projects for the carousel
   const prevIndex =
     activeProject === 0 ? projects.length - 1 : activeProject - 1;
   const nextIndex =
@@ -100,7 +96,32 @@ export default function Projects() {
         </motion.h2>
 
         {/* Mobile Carousel - Only visible on mobile */}
-        <div className="md:hidden relative mb-6 overflow-hidden">
+        <div className="md:hidden relative mb-6">
+          {/* Navigation controls moved outside the carousel container */}
+          <div className="flex justify-between mb-4">
+            <button
+              onClick={prevProject}
+              className="bg-[#1a1a1a] p-2 rounded-lg hover:bg-[#252525] transition-colors flex items-center"
+              aria-label="Previous project"
+            >
+              <ChevronLeft className="w-5 h-5 text-purple-400" />
+              <span className="sr-only">Previous</span>
+            </button>
+            
+            <div className="text-sm font-medium text-gray-400">
+              {activeProject + 1}/{projects.length}
+            </div>
+            
+            <button
+              onClick={nextProject}
+              className="bg-[#1a1a1a] p-2 rounded-lg hover:bg-[#252525] transition-colors flex items-center"
+              aria-label="Next project"
+            >
+              <ChevronRight className="w-5 h-5 text-purple-400" />
+              <span className="sr-only">Next</span>
+            </button>
+          </div>
+
           {/* Carousel Container with Swipe Support */}
           <motion.div
             ref={carouselRef}
@@ -112,7 +133,7 @@ export default function Projects() {
             dragTransition={{ bounceStiffness: 600, bounceDamping: 30 }}
             whileTap={{ cursor: "grabbing" }}
           >
-            <div className="flex justify-center items-center px-2">
+            <div className="flex justify-center items-center">
               {/* Active Project (Full Size) */}
               <AnimatePresence mode="wait">
                 <motion.div
@@ -243,12 +264,8 @@ app.get('/api/analytics', async (req, res) => {
                     </div>
                   </details>
 
-                  {/* Project counter & GitHub link */}
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-light text-gray-400">
-                      {activeProject + 1}/{projects.length}
-                    </div>
-
+                  {/* GitHub link only - project counter moved to top */}
+                  <div className="flex items-center justify-end">
                     <motion.a
                       href={projects[activeProject].github}
                       target="_blank"
@@ -266,23 +283,6 @@ app.get('/api/analytics', async (req, res) => {
               </AnimatePresence>
             </div>
           </motion.div>
-
-          {/* Navigation Buttons - Placed on sides */}
-          <button
-            onClick={prevProject}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-[#1a1a1a]/80 p-2 rounded-r-lg"
-            aria-label="Previous project"
-          >
-            <ChevronLeft className="w-5 h-5 text-purple-400" />
-          </button>
-
-          <button
-            onClick={nextProject}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#1a1a1a]/80 p-2 rounded-l-lg"
-            aria-label="Next project"
-          >
-            <ChevronRight className="w-5 h-5 text-purple-400" />
-          </button>
 
           {/* Navigation Dots */}
           <div className="flex justify-center mt-3 space-x-2">

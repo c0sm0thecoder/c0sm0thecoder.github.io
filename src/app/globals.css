@@ -67,22 +67,42 @@ body {
   @apply transform -rotate-45 -translate-y-2;
 }
 
-/* Mobile navigation overlay */
+/* Mobile navigation overlay - improved */
 .mobile-nav {
-  @apply fixed top-0 right-0 w-full h-full bg-black bg-opacity-90 transform transition-transform duration-300 ease-in-out z-40;
+  @apply fixed top-0 left-0 w-full h-screen bg-[#0f0f0f]/95 backdrop-filter backdrop-blur-sm transform transition-all duration-300 ease-in-out z-40;
   padding-top: 5rem;
+  visibility: visible;
+  opacity: 1;
+  will-change: transform;
 }
 
 .mobile-nav.closed {
   @apply translate-x-full;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .mobile-nav.open {
   @apply translate-x-0;
+  visibility: visible;
+  opacity: 1;
 }
 
 .mobile-nav-links {
   @apply flex flex-col items-center justify-center gap-8 text-xl;
+  height: 100%;
+  padding-bottom: 5rem; /* Add some padding at the bottom */
+}
+
+/* Ensure other sections don't interfere with the mobile nav */
+section {
+  position: relative;
+  z-index: 10; /* Lower than the mobile nav */
+}
+
+/* Header should be above sections but below nav */
+header {
+  z-index: 20;
 }
 
 /* Experience timeline for mobile */
