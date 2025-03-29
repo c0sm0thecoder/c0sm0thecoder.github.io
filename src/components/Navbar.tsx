@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 
 const navItems = ['Home', 'About', 'Skills', 'Experience', 'Services', 'Projects', 'Contact'];
 
@@ -15,6 +14,18 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id.toLowerCase());
@@ -39,6 +50,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('home')}
           >
+            {/* You can add your logo or name here */}
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -55,40 +67,33 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+          {/* Hamburger Menu Button */}
+          <div 
+            className={`hamburger-menu ${isMobileMenuOpen ? 'menu-open' : ''}`}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <motion.div
-        initial={{ opacity: 0, height: 0 }}
-        animate={{
-          opacity: isMobileMenuOpen ? 1 : 0,
-          height: isMobileMenuOpen ? 'auto' : 0,
-        }}
-        className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-md"
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1">
+      {/* Mobile Navigation Overlay */}
+      <div className={`mobile-nav ${isMobileMenuOpen ? 'open' : 'closed'}`}>
+        <nav className="mobile-nav-links">
           {navItems.map((item) => (
             <motion.button
               key={item}
               whileHover={{ scale: 1.05 }}
-              className="block w-full text-left px-3 py-2 text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-white transition-colors py-3"
               onClick={() => scrollToSection(item.toLowerCase())}
             >
               {item}
             </motion.button>
           ))}
-        </div>
-      </motion.div>
+        </nav>
+      </div>
     </motion.nav>
   );
 }

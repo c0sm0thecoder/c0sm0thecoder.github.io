@@ -135,6 +135,8 @@ export default function Contact() {
           >
             <motion.a
               href="https://github.com/c0sm0thecoder"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.2 }}
               className="text-gray-400 hover:text-white"
             >
@@ -142,6 +144,8 @@ export default function Contact() {
             </motion.a>
             <motion.a
               href="https://www.linkedin.com/in/kamalaghazada/"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.2 }}
               className="text-gray-400 hover:text-white"
             >

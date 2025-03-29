@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 export default function Hero() {
   return (
     <section id="home" className="min-h-screen flex items-center relative">
-      <div className="container mx-auto px-4 pt-16 flex flex-col md:flex-row items-center">
+      <div className="container mx-auto px-4 pt-16 flex flex-col-reverse md:flex-row items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="md:w-1/2 text-center md:text-left"
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="md:w-1/2 text-center md:text-left mt-8 md:mt-0"
         >
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
             Hi, I'm{" "}
@@ -21,8 +21,8 @@ export default function Hero() {
           <h2 className="text-xl md:text-2xl text-gray-400 mb-6">
             Software Developer
           </h2>
-          <p className="text-gray-300 mb-8 max-w-lg">
-          I build clean, reliable backend systems that fuel business growth.
+          <p className="text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
+            I build clean, reliable backend systems that fuel business growth.
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -36,8 +36,8 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="md:w-1/2 mt-12 md:mt-0"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="md:w-1/2 mb-4 md:mb-0"
         >
           <img
             src="/me.jpg"

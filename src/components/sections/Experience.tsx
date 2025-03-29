@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Calendar, Briefcase } from 'lucide-react';
 
 const experiences = [
@@ -46,10 +46,6 @@ const experiences = [
 
 export default function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
 
   return (
     <section id="experience" className="py-20 relative overflow-hidden">
@@ -67,40 +63,24 @@ export default function Experience() {
         </motion.h2>
         
         <div ref={containerRef} className="max-w-5xl mx-auto relative">
-          {/* Side timeline */}
-          <div className="absolute left-0 md:left-1/2 top-0 h-full w-1 bg-gradient-to-b from-purple-500 to-cyan-500 transform md:translate-x-[-50%]" />
+          {/* Side timeline - hidden on mobile */}
+          <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-purple-500 to-cyan-500 transform translate-x-[-50%]" />
           
           {/* Experience items */}
           {experiences.map((exp, index) => {
-            // Create unique scroll progress for each item
-            const startProgress = index / experiences.length;
-            const endProgress = (index + 1) / experiences.length;
-            
-            const opacity = useTransform(
-              scrollYProgress, 
-              [startProgress - 0.1, startProgress, endProgress, endProgress + 0.1], 
-              [0, 1, 1, 0]
-            );
-            
-            const scale = useTransform(
-              scrollYProgress,
-              [startProgress - 0.2, startProgress, endProgress, endProgress + 0.2],
-              [0.8, 1, 1, 0.8]
-            );
-            
-            const y = useTransform(
-              scrollYProgress,
-              [startProgress - 0.2, startProgress, endProgress, endProgress + 0.2],
-              [50, 0, 0, -50]
-            );
-            
             const isEven = index % 2 === 0;
             
             return (
               <motion.div
                 key={exp.company}
-                style={{ opacity, scale, y }}
-                className={`mb-16 relative ${isEven ? 'md:pl-0 md:pr-12 md:ml-auto md:mr-[50%]' : 'md:pl-12 md:pr-0 md:ml-[50%] md:mr-0'}`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true, margin: "-100px" }}
+                className={`mb-16 relative 
+                  pl-6 border-l-2 border-purple-500/50
+                  md:border-l-0 md:pl-0
+                  ${isEven ? 'md:pl-0 md:pr-12 md:ml-auto md:mr-[50%]' : 'md:pl-12 md:pr-0 md:ml-[50%] md:mr-0'}`}
               >
                 <motion.div
                   whileHover={{ translateY: -5 }}
@@ -139,7 +119,10 @@ export default function Experience() {
                 </motion.div>
                 
                 {/* Timeline dot with pulse effect */}
-                <div className={`absolute top-6 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 border-4 border-[#0a0a0a] ${isEven ? 'md:right-[-2.5px]' : 'md:left-[-2.5px]'}`}>
+                <div className={`absolute top-6 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 border-4 border-[#0a0a0a]
+                  -left-[11px]
+                  md:left-auto 
+                  ${isEven ? 'md:right-[-2.5px]' : 'md:left-[-2.5px]'}`}>
                   <span className="absolute inset-0 rounded-full animate-ping bg-purple-500 opacity-50"></span>
                 </div>
               </motion.div>
@@ -149,4 +132,4 @@ export default function Experience() {
       </div>
     </section>
   );
-} 
+}

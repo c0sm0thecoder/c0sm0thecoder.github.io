@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Globe, Bot } from 'lucide-react';
+import { Globe, Bot, Server } from 'lucide-react';
 
 const services = [
   {
@@ -17,7 +17,7 @@ const services = [
   {
     title: 'Monolith to Microservices Migration',
     description: 'Helping you migrate your monolith apps into scalable and resilient microservices.',
-    icon: <Bot className="w-10 h-10 text-teal-500" />,
+    icon: <Server className="w-10 h-10 text-teal-500" />,
   },
 ];
 
@@ -53,4 +53,4 @@ export default function Services() {
       </div>
     </section>
   );
-} 
+}
