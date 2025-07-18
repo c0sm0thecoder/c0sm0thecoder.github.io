@@ -16,33 +16,34 @@ const projects = [
   {
     title: "RAG News Analyst",
     description:
-      "Developed a news analysis system using RAG pipelines for summarization and sentiment analysis.",
+      "Architected and built an end-to-end news analysis platform that leverages a Retrieval-Augmented Generation (RAG) architecture to produce nuanced, AI-driven insights from real-time news streams. The system was engineered with a durable, streaming data pipeline for scalable information ingestion and featured an efficient API for seamless communication and retrieval of the generated analysis.",
     tech: [
       "Node.js",
       "TypeScript",
+      "Google Gemini API",
       "Kafka",
-      "Pinecone vector DB",
+      "Pinecone",
       "Apollo GraphQL",
       "Docker",
-      "Google Gemini API",
     ],
     metrics: [
-      "~500ms-2s response time",
-      "~500 simultaneous queries",
-      "~1000 requests/minute handling capacity",
+      "Real-time news stream processing",
+      "Scalable RAG architecture",
+      "AI-driven insight generation",
     ],
     icon: <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-500" />,
     github: "https://github.com/c0sm0thecoder/rag-news-analyst",
     image: "",
   },
   {
-    title: "CLI Based Chat Application",
+    title: "CLI Based Group Chat Application",
     description:
-      "Developed a robust CLI chat application that lets users create custom chat rooms and connect with your friends.",
-    tech: ["Go", "Websocket", "Redis Pub/Sub", "PostgreSQL", "GORM", "tview"],
+      "Developed a robust, real-time chat application from the ground up, featuring secure, token-based user authentication and persistent message history. The system was designed with a scalable backend architecture to handle real-time message broadcasting efficiently across multiple clients. A user-friendly command-line interface was created to ensure a seamless and interactive experience directly from the terminal.",
+    tech: ["Go", "Cobra", "WebSocket", "Redis Pub/Sub", "PostgreSQL", "GORM", "JWT"],
     metrics: [
       "Zero message loss with persistent storage",
-      "20-50ms avg response time for auth operations",
+      "Real-time message broadcasting",
+      "Secure JWT-based authentication",
     ],
     icon: (
       <MessageSquareText className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500" />

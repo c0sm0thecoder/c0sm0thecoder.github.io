@@ -24,21 +24,13 @@ export default function About() {
             className="space-y-4"
           >
             <p className="text-gray-300">
-              I'm a dedicated software developer specializing in backend
-              development. I thrive on tackling complex challenges and designing
-              scalable solutions that optimize performance and ensure
-              robustness.
+              I'm a results-oriented Backend Developer with over 2 years of experience in building and optimizing scalable, high-performance applications using Java and Go. I possess a strong foundation in core computer science and OOP principles, which I've applied through proven experience in developing robust microservices and working with SQL databases like PostgreSQL.
             </p>
             <p className="text-gray-300">
-              By integrating AI into my systems, I continuously push the
-              boundaries of what's possible in software engineering. I have
-              experience with a variety of programming languages and frameworks,
-              including Node.js, Python, Go, and Java.
+              I am adept at utilizing containerization with Docker and cloud platforms like AWS, and I am passionate about debugging complex issues and enhancing application performance. My experience spans across various domains including e-learning platforms, AI assistants, delivery systems, and document processing applications.
             </p>
             <p className="text-gray-300">
-              I'm currently pursuing a degree in Computer Science and am
-              passionate about learning new technologies and methodologies to
-              stay ahead of the curve in the ever-evolving tech landscape.
+              I'm currently pursuing a Master's degree in Computer Science and Data Analytics through a dual degree program, building upon my Bachelor's degree in Computer Science where I graduated with a 98/100 CGPA.
             </p>
           </motion.div>
           <motion.div
@@ -50,23 +42,23 @@ export default function About() {
           >
             <div>
               <h3 className="text-xl font-semibold mb-2">Education</h3>
+              <p className="text-gray-400 mb-2">
+                MS in Computer Science and Data Analytics - ADA University & George Washington University (2025-2027)
+              </p>
               <p className="text-gray-400">
-                BS in Computer Science - French-Azerbaijani University
-                (2021-2025)
+                BS in Computer Science - French-Azerbaijani University (2021-2025) • CGPA: 98/100
               </p>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-2">Languages</h3>
               <p className="text-gray-400">
-                English (Fluent), Azerbaijani (Native), French (Intermediate),
-                Russian (Elementary)
+                English (Fluent), Azerbaijani (Native), French (Limited proficiency), German & Russian (Elementary)
               </p>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-2">Interests</h3>
               <p className="text-gray-400">
-                Backend Systems, AI-Driven Integrations, RAG Techniques, Chatbot
-                Development
+                Backend Systems, Microservices Architecture, AI Integration, Performance Optimization, Cloud Platforms
               </p>
             </div>
           </motion.div>

@@ -4,21 +4,21 @@ import { motion } from 'framer-motion';
 
 const skills = [
   { name: 'Go', icon: '/icons/go.svg' },
-  { name: 'TypeScript', icon: '/icons/typescript.svg' },
-  { name: 'Python', icon: '/icons/python.svg' },
-  { name: 'Node.js', icon: '/icons/node.svg' },
   { name: 'Java', icon: '/icons/java.svg' },
+  { name: 'Python', icon: '/icons/python.svg' },
+  { name: 'TypeScript', icon: '/icons/typescript.svg' },
+  { name: 'Node.js', icon: '/icons/node.svg' },
   { name: 'Spring Boot', icon: '/icons/spring.svg' },
-  { name: 'Git', icon: '/icons/git.svg' },
   { name: 'Django', icon: '/icons/django.svg' },
   { name: 'PostgreSQL', icon: '/icons/postgresql.svg' },
   { name: 'Redis', icon: '/icons/redis.svg' },
-  { name: 'MinIO', icon: '/icons/minio.svg' },
-  { name: 'GraphQL', icon: '/icons/graphql.svg' },
-  { name: 'Kubernetes', icon: '/icons/kubernetes.svg' },
   { name: 'Docker', icon: '/icons/docker.svg' },
+  { name: 'Kubernetes', icon: '/icons/kubernetes.svg' },
   { name: 'RabbitMQ', icon: '/icons/rabbitmq.svg' },
   { name: 'Kafka', icon: '/icons/kafka.svg' },
+  { name: 'MinIO', icon: '/icons/minio.svg' },
+  { name: 'GraphQL', icon: '/icons/graphql.svg' },
+  { name: 'Git', icon: '/icons/git.svg' },
 ];
 
 export default function Skills() {

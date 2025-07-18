@@ -10,34 +10,39 @@ const experiences = [
     position: 'Software Engineer',
     period: 'Oct 2024 - Present',
     achievements: [
-      'Replaced WebSocket with RabbitMQ in microservices (JS, Python, C++), enhancing messaging durability.',
-      'Developed and optimized OCR solutions in Python and C++ for high-accuracy text extraction.',
-      'Implemented a JavaScript service (PM2-managed) for automated system change monitoring.',
-      'Constructed a back-end service for AI software using Go\'s Gin framework.'
+      'Resolved a critical performance bottleneck by redesigning a hierarchical data query in PostgreSQL, leveraging a Common Table Expression (CTE) to achieve a 60-fold improvement in data loading speed.',
+      'Integrated a biometric identification SDK using Java 11 to build a secure user authentication system, establishing a verification process with a 99.9999999% success rate.',
+      'Developed a scalable backend for the "TAIM" e-learning platform using Golang, orchestrating AWS services (Cognito, MediaConvert, S3) for user management and media processing, all managed behind an NGINX reverse proxy.',
+      'Engineered a Finite State Machine in Golang to manage the e-learning platform\'s complex user workflow, reducing state management bugs by 95% and ensuring a consistent user experience.',
+      'Built a high-throughput backend service for "VokalAI", an advanced AI assistant working with both audio and text inputs, using the Gin framework in Golang, MinIO for efficient object storage, RabbitMQ for interservice communication, and PostgreSQL for data storage.',
+      'Overhauled the communication layer for a document summarizer by replacing WebSockets with RabbitMQ, ensuring 99%+ messaging durability across a polyglot microservice environment of JavaScript, Python, and C++.',
+      'Developed and fine-tuned Optical Character Recognition (OCR) pipelines for a document summarizer, using Python for rapid prototyping and C++ for performance-critical components to achieve over 95% accuracy.'
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-purple-500 to-pink-500',
   },
   {
-    company: 'Ecomart',
-    position: 'Co-founder & CDO',
-    period: 'Jun 2024 - Jan 2025',
+    company: 'EtaFlex',
+    position: 'Junior Software Engineer',
+    period: 'Feb 2024 - Oct 2024',
     achievements: [
-      'Co-founded an AI-driven inventory management startup focused on sustainability and data-driven decision-making.',
-      'Secured 2nd place in the "Green Fintech Startup Challenge" by the International Bank of Azerbaijan.',
-      'Finalist in Google\'s "Build with AI for Sustainable Growth" hackathon in Kazakhstan.',
-      'Finalist in the "Global Green Startup Challenge" organized by SABAH.HUB and ABB at COP29.'
+      'Designed and built a real-time package tracking system for a delivery service in Java with GPS integration and ETA calculations, leading to a 30% reduction in customer support calls regarding delivery status.',
+      'Implemented a driver tracking feature using MQTT and the Mosquitto broker, ensuring 100% location data capture in areas with poor connectivity and reducing driver phone battery consumption by 20%.',
+      'Developed a complex delivery state management system using Celery tasks, automating over 98% of state transitions for rush, scheduled, and recurring orders.',
+      'Created a notification system in Java to handle over 50,000 daily delivery status updates with a 99.5% delivery success rate across SMS, email, and push notifications.',
+      'Implemented a package scanning and sorting system in Java, increasing package processing throughput by 25% while reducing sorting errors by 90%.'
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-cyan-500 to-blue-500',
   },
   {
     company: 'PASHA Bank OJSC',
-    position: 'Backend Development Trainee',
+    position: 'Backend Developer Trainee',
     period: 'Apr 2023 - June 2023',
     achievements: [
-      'Participated in DevZone Learning Session which included intensive Java Spring Boot back-end development learning sessions, honing skills in building robust and scalable web applications.',
-      'Acquired knowledge and skills in Java SE, OOP principles, Spring Boot, Building REST APIs, PostgreSQL, Databases in Web Applications, Unit testing with Spock.'
+      'Completed an intensive DevZone training program focused on enterprise-level backend development, honing skills in building robust and scalable web applications with Java and Spring Boot.',
+      'Acquired knowledge and skills in Java SE, OOP principles, Spring Boot, Building RESTful APIs, PostgreSQL, Databases in Web Applications, Unit testing with Spock.',
+      'Applied these skills in a capstone project by developing and testing a RESTful banking API, using Spring Boot and PostgreSQL to manage user accounts, funds transfers, and transaction histories.'
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-green-500 to-teal-500',
