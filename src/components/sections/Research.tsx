@@ -18,10 +18,10 @@ const research = [
     affiliation: 'Independent research, sole author',
     period: '2025 to Present',
     points: [
-      'Formalized partial regeneration as localized span editing: sentence partitioning with exact character offsets, NLI-based span critique, and a right-to-left splice with a provable order-safety property.',
-      'In a pilot on the GAIA benchmark, editing only the flagged spans cost 2.8x more than redrafting the whole response. Working out why (every span edit re-sends the full answer and evidence as context) became the central result of the project.',
+      'Formalized partial regeneration as localized span editing: sentence partitioning with exact character offsets, rule-based NLI span critique, and a right-to-left splice with a provable order-safety property.',
+      'In a pilot on the GAIA benchmark with Llama 3.3 70B, editing only the flagged spans cost 2.8x more than redrafting the whole response. Working out why (every span edit re-sends the full answer and evidence as context) became the central result of the project.',
       'Derived a break-even bound k* on the number of editable spans, which captures the input-cost overhead of localized correction and the provider\'s output/input price ratio, and built a cost-aware router that uses it to choose between local editing and full redrafting in each revision round.',
-      'Validated the bound across two model providers (GPT-4o, Llama 3.3 70B) and three benchmark regimes (curated factual QA, MultiWOZ, GAIA): quality gains when few spans are flagged, and the predicted 2.1x to 3.2x cost inversion in high-error dialogue.',
+      'Validated the bound across two model providers (GPT-4o, Llama 3.3 70B) and three benchmark regimes (curated factual QA and MultiWOZ, with GAIA as a noise-floor control): quality gains when few spans are flagged, and the predicted 2.1x to 3.2x cost inversion in high-error dialogue.',
       'Grew out of a multi-agent LLM evaluation harness (planner, retrieval, response, critic, and deciding agents) built in Guided Research with Prof. Stephen Kaisler (GWU, Summer 2026). Python harness with a 200+ test suite, LiteLLM multi-provider backend, and deterministic JSONL/SQLite logging; ablations, replicates, and paired significance tests (McNemar).',
       'I designed, directed, and validated the research, using AI tools to speed up implementation.',
     ],
