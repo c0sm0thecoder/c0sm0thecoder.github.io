@@ -2,23 +2,83 @@
 
 import { motion } from 'framer-motion';
 
-const skills = [
-  { name: 'Go', icon: '/icons/go.svg' },
-  { name: 'Java', icon: '/icons/java.svg' },
-  { name: 'Python', icon: '/icons/python.svg' },
-  { name: 'TypeScript', icon: '/icons/typescript.svg' },
-  { name: 'Node.js', icon: '/icons/node.svg' },
-  { name: 'Spring Boot', icon: '/icons/spring.svg' },
-  { name: 'Django', icon: '/icons/django.svg' },
-  { name: 'PostgreSQL', icon: '/icons/postgresql.svg' },
-  { name: 'Redis', icon: '/icons/redis.svg' },
-  { name: 'Docker', icon: '/icons/docker.svg' },
-  { name: 'Kubernetes', icon: '/icons/kubernetes.svg' },
-  { name: 'RabbitMQ', icon: '/icons/rabbitmq.svg' },
-  { name: 'Kafka', icon: '/icons/kafka.svg' },
-  { name: 'MinIO', icon: '/icons/minio.svg' },
-  { name: 'GraphQL', icon: '/icons/graphql.svg' },
-  { name: 'Git', icon: '/icons/git.svg' },
+type Skill = { name: string; icon?: string; invert?: boolean };
+
+const skillGroups: { title: string; skills: Skill[] }[] = [
+  {
+    title: 'Programming',
+    skills: [
+      { name: 'Golang', icon: '/icons/go.svg' },
+      { name: 'Python', icon: '/icons/python.svg' },
+      { name: 'Java', icon: '/icons/java.svg' },
+      { name: 'TypeScript/React', icon: '/icons/typescript.svg' },
+      { name: 'SQL' },
+      { name: 'C++ (familiar)' },
+    ],
+  },
+  {
+    title: 'Machine Learning & Deep Learning',
+    skills: [
+      { name: 'PyTorch' },
+      { name: 'Hugging Face Transformers' },
+      { name: 'scikit-learn' },
+      { name: 'NumPy' },
+      { name: 'pandas' },
+      { name: 'Neural networks' },
+      { name: 'Fine-tuning' },
+      { name: 'Transfer learning' },
+      { name: 'Model evaluation' },
+    ],
+  },
+  {
+    title: 'Natural Language Processing',
+    skills: [
+      { name: 'Natural Language Inference' },
+      { name: 'Multilingual & low-resource NLP' },
+      { name: 'BERT, mBERT, XLM-R' },
+      { name: 'Tokenization' },
+      { name: 'Word/sentence embeddings' },
+      { name: 'Machine translation' },
+      { name: 'RAG & Graph RAG' },
+    ],
+  },
+  {
+    title: 'LLMs & Generative AI',
+    skills: [
+      { name: 'Prompt engineering' },
+      { name: 'LLM-as-Judge evaluation' },
+      { name: 'LangChain, LangGraph', icon: '/icons/langchain.svg', invert: true },
+      { name: 'Coding agents via ACP (Claude Code)' },
+      { name: 'LiteLLM' },
+      { name: 'Pinecone' },
+      { name: 'Neo4j' },
+      { name: 'FastAPI' },
+    ],
+  },
+  {
+    title: 'Experimental Design',
+    skills: [
+      { name: 'Ablations' },
+      { name: 'Replicates' },
+      { name: 'Paired significance testing (McNemar)' },
+      { name: 'Noise-floor estimation' },
+    ],
+  },
+  {
+    title: 'Systems & Infrastructure',
+    skills: [
+      { name: 'Distributed systems' },
+      { name: 'Kafka', icon: '/icons/kafka.svg' },
+      { name: 'gRPC' },
+      { name: 'Concurrency' },
+      { name: 'AWS' },
+      { name: 'Terraform' },
+      { name: 'Docker', icon: '/icons/docker.svg' },
+      { name: 'Kubernetes', icon: '/icons/kubernetes.svg' },
+      { name: 'Redis', icon: '/icons/redis.svg' },
+      { name: 'PostgreSQL', icon: '/icons/postgresql.svg' },
+    ],
+  },
 ];
 
 export default function Skills() {
@@ -32,53 +92,43 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
-          My Skills
+          Technical Skills
         </motion.h2>
-        <motion.div 
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-6xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ staggerChildren: 0.1, delayChildren: 0.3 }}
-          viewport={{ once: true }}
-        >
-          {skills.map((skill, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          {skillGroups.map((group, index) => (
             <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 20, scale: 0.8 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ 
-                duration: 0, 
-                ease: [0.19, 1.0, 0.22, 1.0],
-                delay: 0 
-              }}
-              whileHover={{ 
-                y: -10, 
-                scale: 1.05,
-                transition: { 
-                  duration: 0,
-                  ease: "easeOut" 
-                }
-              }}
+              key={group.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.05 }}
+              whileHover={{ y: -5 }}
               viewport={{ once: true }}
-              className="flex flex-col items-center justify-center bg-[#1a1a1a] rounded-xl p-6 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
+              className="bg-[#1a1a1a] rounded-xl p-6 hover:shadow-lg hover:shadow-purple-500/10 transition-shadow duration-300"
             >
-              <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                <img 
-                  src={skill.icon} 
-                  alt={skill.name} 
-                  className="w-15 h-15 object-contain" 
-                  onError={(e) => {
-                    // Fallback for missing icons
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = `https://ui-avatars.com/api/?name=${skill.name}&background=random&color=fff&size=60&length=1&bold=true`;
-                  }}
-                />
+              <h3 className="text-lg font-semibold mb-4 bg-gradient-to-r from-purple-500 to-cyan-500 text-transparent bg-clip-text">
+                {group.title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className="flex items-center px-3 py-1.5 bg-[#252525] text-gray-200 text-sm rounded-full"
+                  >
+                    {skill.icon && (
+                      <img
+                        src={skill.icon}
+                        alt=""
+                        aria-hidden="true"
+                        className={`w-4 h-4 mr-2 object-contain ${skill.invert ? 'invert' : ''}`}
+                      />
+                    )}
+                    {skill.name}
+                  </span>
+                ))}
               </div>
-              <span className="text-center text-sm font-medium">{skill.name}</span>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -8,11 +8,131 @@ import {
   Server,
   Bot,
   MessageSquareText,
+  Terminal,
   ChevronRight,
   ChevronLeft,
 } from "lucide-react";
 
+const ragSampleMobile = `// Sample query
+query {
+  askQuestion(query: "What is AI?") {
+    answer
+    sources {
+      title
+      url
+    }
+  }
+}
+
+// Answer
+{
+  "data": {
+    "askQuestion": {
+      "answer": "AI is technology that enables computers and machines to simulate human learning, comprehension, problem solving, decision making, creativity, and autonomy ("What Is Artificial Intelligence (AI)? | IBM")...",
+      "sources": [
+        {
+          "title": "What is AI, and how do programmes like ChatGPT and DeepSeek work?",
+          "url": "https://www.bbc.com/news/technology-65855333",
+          "source": "www.bbc.com",
+          "date": "2025-02-18"
+        },
+        {
+          "title": "What Is Artificial Intelligence (AI)? | Google Cloud",
+          "url": "https://cloud.google.com/learn/what-is-artificial-intelligence?hl=en",
+          "source": "cloud.google.com",
+          "date": "2024-02-29"
+        },
+        {
+          "title": "What Is Artificial Intelligence (AI)? | IBM",
+          "url": "https://www.ibm.com/think/topics/artificial-intelligence",
+          "source": "www.ibm.com",
+          "date": "2024-11-06"
+        }
+      ]
+    }
+  }
+}`;
+
+const ragSampleDesktop = `// Sample query
+query {
+  askQuestion(query: "What is AI?") {
+    answer
+    sources {
+      title
+      url
+      source
+      date
+    }
+  }
+}
+
+// Answer
+{
+  "data": {
+    "askQuestion": {
+      "answer": "AI is technology that enables computers and machines to simulate human learning,
+      comprehension, problem solving, decision making, creativity, and autonomy ("What Is Artificial
+      Intelligence (AI)? | IBM"). It allows computers to learn and solve problems in ways that can
+      seem human, processing large amounts of data, identifying patterns, and following detailed instructions
+      to replicate how people acquire and use knowledge ("What is AI, and how do programmes like ChatGPT
+      and DeepSeek work?"). AI is used for personalizing social media feeds to powering medical breakthroughs
+      and has become an increasing part of everyday life ("What is AI, and how do programmes like ChatGPT
+      and DeepSeek work?"). A simple way to think about AI is as a series of nested or derivative concepts
+      that have emerged over more than 70 years. Directly underneath AI is machine learning, which involves
+      creating models by training an algorithm to make predictions or decisions based on data. It encompasses
+      a broad range of techniques that enable computers to learn from and make inferences based on data
+      without being explicitly programmed for specific tasks ("What Is Artificial Intelligence (AI)? | IBM").
+      SOURCES: What is AI, and how do programmes like ChatGPT and DeepSeek work?; What Is Artificial
+      Intelligence (AI)? | IBM",
+      "sources": [
+        {
+          "title": "What is AI, and how do programmes like ChatGPT and DeepSeek work?",
+          "url": "https://www.bbc.com/news/technology-65855333",
+          "source": "www.bbc.com",
+          "date": "2025-02-18"
+        },
+        {
+          "title": "What Is Artificial Intelligence (AI)? | Google Cloud",
+          "url": "https://cloud.google.com/learn/what-is-artificial-intelligence?hl=en",
+          "source": "cloud.google.com",
+          "date": "2024-02-29"
+        },
+        {
+          "title": "What Is Artificial Intelligence (AI)? | IBM",
+          "url": "https://www.ibm.com/think/topics/artificial-intelligence",
+          "source": "www.ibm.com",
+          "date": "2024-11-06"
+        }
+      ]
+    }
+  }
+}`;
+
 const projects = [
+  {
+    title: "pocketagent",
+    description:
+      "Open-source Go tool for supervising AI coding agents from Telegram, using text, voice notes, and images. It works as an Agent Client Protocol (ACP) client and has been tested end to end with Claude Code. A per-tool-call permission policy lets me approve or deny each action, and a git checkpoint is taken before every agent turn so changes can be reviewed as a diff and undone. Built with Claude Code under my direction. MIT license.",
+    tech: [
+      "Go",
+      "Telegram",
+      "Agent Client Protocol",
+      "Claude Code",
+      "whisper.cpp",
+      "Git",
+      "CodeQL",
+    ],
+    metrics: [
+      "11 signed releases",
+      "140 test and fuzz functions",
+      "CI with a 78% coverage floor",
+    ],
+    icon: <Terminal className="w-6 h-6 sm:w-8 sm:h-8 text-green-500" />,
+    github: "https://github.com/c0sm0thecoder/pocketagent",
+    image: "",
+    sampleMobile: "",
+    sampleDesktop: "",
+  },
   {
     title: "RAG News Analyst",
     description:
@@ -34,6 +154,8 @@ const projects = [
     icon: <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-500" />,
     github: "https://github.com/c0sm0thecoder/rag-news-analyst",
     image: "",
+    sampleMobile: ragSampleMobile,
+    sampleDesktop: ragSampleDesktop,
   },
   {
     title: "CLI Based Group Chat Application",
@@ -50,6 +172,8 @@ const projects = [
     ),
     github: "https://github.com/c0sm0thecoder/cli-chat-app",
     image: "/previews/cli-chat-app.png",
+    sampleMobile: "",
+    sampleDesktop: "",
   },
 ];
 
@@ -177,6 +301,7 @@ export default function Projects() {
                   </div>
 
                   {/* Code sample or image preview in mobile */}
+                  {(projects[activeProject].image || projects[activeProject].sampleMobile) && (
                   <details className="group mb-3">
                     <summary className="text-sm font-semibold mb-2 flex items-center cursor-pointer list-none">
                       <Code className="w-4 h-4 mr-1 text-purple-400" />
@@ -202,68 +327,13 @@ export default function Projects() {
                         // Otherwise show code sample
                         <div className="bg-[#252525] rounded-lg p-2 font-mono text-xs overflow-x-auto">
                           <pre className="text-gray-300 whitespace-pre-wrap">
-                            {activeProject === 0
-                              ? `// Sample query
-query {
-  askQuestion(query: "What is AI?") {
-    answer
-    sources {
-      title
-      url
-    }
-  }
-}
-
-// Answer
-{
-  "data": {
-    "askQuestion": {
-      "answer": "AI is technology that enables computers and machines to simulate human learning, comprehension, problem solving, decision making, creativity, and autonomy ("What Is Artificial Intelligence (AI)? | IBM")...",
-      "sources": [
-        {
-          "title": "What is AI, and how do programmes like ChatGPT and DeepSeek work?",
-          "url": "https://www.bbc.com/news/technology-65855333",
-          "source": "www.bbc.com",
-          "date": "2025-02-18"
-        },
-        {
-          "title": "What Is Artificial Intelligence (AI)? | Google Cloud",
-          "url": "https://cloud.google.com/learn/what-is-artificial-intelligence?hl=en",
-          "source": "cloud.google.com",
-          "date": "2024-02-29"
-        },
-        {
-          "title": "What Is Artificial Intelligence (AI)? | IBM",
-          "url": "https://www.ibm.com/think/topics/artificial-intelligence",
-          "source": "www.ibm.com",
-          "date": "2024-11-06"
-        }
-      ]
-    }
-  }
-}`
-                              : `// API endpoint
-app.get('/api/analytics', async (req, res) => {
-  try {
-    const cached = await redis.get(\`stats:\${req.query.id}\`);
-    if (cached) return res.json(JSON.parse(cached));
-    
-    const results = await AnalyticsModel.aggregate([
-      { $match: { clientId: req.query.id } },
-      { $limit: 1000 }
-    ]);
-    
-    await redis.set(\`stats:\${req.query.id}\`, JSON.stringify(results));
-    return res.json(results);
-  } catch (error) {
-    return res.status(500).json({ error: 'Server error' });
-  }
-});`}
+                            {projects[activeProject].sampleMobile}
                           </pre>
                         </div>
                       )}
                     </div>
                   </details>
+                  )}
 
                   {/* GitHub link only - project counter moved to top */}
                   <div className="flex items-center justify-end">
@@ -349,7 +419,7 @@ app.get('/api/analytics', async (req, res) => {
               <div className="mb-5 md:mb-6">
                 <h4 className="text-base md:text-lg font-semibold mb-2 md:mb-3 flex items-center">
                   <Server className="w-4 h-4 md:w-5 md:h-5 mr-2 text-purple-400" />{" "}
-                  Performance Metrics
+                  Highlights
                 </h4>
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4">
                   {projects[activeProject].metrics.map((metric, i) => (
@@ -384,6 +454,7 @@ app.get('/api/analytics', async (req, res) => {
               </div>
 
               {/* Code sample or image */}
+              {(projects[activeProject].image || projects[activeProject].sampleDesktop) && (
               <div className="mb-5 md:mb-6">
                 <details className="group">
                   <summary className="text-base md:text-lg font-semibold mb-2 md:mb-3 flex items-center cursor-pointer list-none">
@@ -410,85 +481,14 @@ app.get('/api/analytics', async (req, res) => {
                       // Otherwise show code sample
                       <div className="bg-[#252525] rounded-lg p-2 md:p-4 font-mono text-xs md:text-sm overflow-x-auto">
                         <pre className="text-gray-300 whitespace-pre-wrap md:whitespace-pre">
-                          {activeProject === 0
-                            ? `// Sample query
-query {
-  askQuestion(query: "What is AI?") {
-    answer
-    sources {
-      title
-      url
-      source
-      date
-    }
-  }
-}
-
-// Answer
-{
-  "data": {
-    "askQuestion": {
-      "answer": "AI is technology that enables computers and machines to simulate human learning,
-      comprehension, problem solving, decision making, creativity, and autonomy ("What Is Artificial
-      Intelligence (AI)? | IBM"). It allows computers to learn and solve problems in ways that can
-      seem human, processing large amounts of data, identifying patterns, and following detailed instructions
-      to replicate how people acquire and use knowledge ("What is AI, and how do programmes like ChatGPT
-      and DeepSeek work?"). AI is used for personalizing social media feeds to powering medical breakthroughs
-      and has become an increasing part of everyday life ("What is AI, and how do programmes like ChatGPT
-      and DeepSeek work?"). A simple way to think about AI is as a series of nested or derivative concepts
-      that have emerged over more than 70 years. Directly underneath AI is machine learning, which involves
-      creating models by training an algorithm to make predictions or decisions based on data. It encompasses
-      a broad range of techniques that enable computers to learn from and make inferences based on data
-      without being explicitly programmed for specific tasks ("What Is Artificial Intelligence (AI)? | IBM").
-      SOURCES: What is AI, and how do programmes like ChatGPT and DeepSeek work?; What Is Artificial
-      Intelligence (AI)? | IBM",
-      "sources": [
-        {
-          "title": "What is AI, and how do programmes like ChatGPT and DeepSeek work?",
-          "url": "https://www.bbc.com/news/technology-65855333",
-          "source": "www.bbc.com",
-          "date": "2025-02-18"
-        },
-        {
-          "title": "What Is Artificial Intelligence (AI)? | Google Cloud",
-          "url": "https://cloud.google.com/learn/what-is-artificial-intelligence?hl=en",
-          "source": "cloud.google.com",
-          "date": "2024-02-29"
-        },
-        {
-          "title": "What Is Artificial Intelligence (AI)? | IBM",
-          "url": "https://www.ibm.com/think/topics/artificial-intelligence",
-          "source": "www.ibm.com",
-          "date": "2024-11-06"
-        }
-      ]
-    }
-  }
-}`
-                            : `// API endpoint
-app.get('/api/analytics/realtime', async (req, res) => {
-  try {
-    const cachedData = await redisClient.get(\`analytics:\${req.query.id}\`);
-    if (cachedData) return res.json(JSON.parse(cachedData));
-    
-    // Fall back to database
-    const results = await AnalyticsModel.aggregate([
-      { $match: { clientId: req.query.id } },
-      { $limit: 1000 }
-    ]);
-    
-    await redisClient.set(\`analytics:\${req.query.id}\`, JSON.stringify(results));
-    return res.json(results);
-  } catch (error) {
-    return res.status(500).json({ error: 'Server error' });
-  }
-});`}
+                          {projects[activeProject].sampleDesktop}
                         </pre>
                       </div>
                     )}
                   </div>
                 </details>
               </div>
+              )}
 
               {/* Links */}
               <div className="flex space-x-4">

@@ -2,47 +2,93 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Calendar, Briefcase } from 'lucide-react';
+import { Calendar, Briefcase, MapPin } from 'lucide-react';
 
-const experiences = [
+type ExperienceItem = {
+  company: string;
+  position: string;
+  period: string;
+  location?: string;
+  summary?: string;
+  achievements: string[];
+  icon: JSX.Element;
+  color: string;
+};
+
+const experiences: ExperienceItem[] = [
   {
-    company: 'AZAI TECH LLC',
-    position: 'Software Engineer',
-    period: 'Oct 2024 - Present',
+    company: 'Olympiads.ai',
+    position: 'Founding Engineer',
+    period: 'Feb 2026 to Present',
+    summary:
+      'AI-powered platform for competitive-olympiad training. I own the backend, frontends, and cloud infrastructure end to end.',
     achievements: [
-      'Resolved a critical performance bottleneck by redesigning a hierarchical data query in PostgreSQL, leveraging a Common Table Expression (CTE) to achieve a 60-fold improvement in data loading speed.',
-      'Integrated a biometric identification SDK using Java 11 to build a secure user authentication system, establishing a verification process with a 99.9999999% success rate.',
-      'Developed a scalable backend for the "TAIM" e-learning platform using Golang, orchestrating AWS services (Cognito, MediaConvert, S3) for user management and media processing, all managed behind an NGINX reverse proxy.',
-      'Engineered a Finite State Machine in Golang to manage the e-learning platform\'s complex user workflow, reducing state management bugs by 95% and ensuring a consistent user experience.',
-      'Built a high-throughput backend service for "VokalAI", an advanced AI assistant working with both audio and text inputs, using the Gin framework in Golang, MinIO for efficient object storage, RabbitMQ for interservice communication, and PostgreSQL for data storage.',
-      'Overhauled the communication layer for a document summarizer by replacing WebSockets with RabbitMQ, ensuring 99%+ messaging durability across a polyglot microservice environment of JavaScript, Python, and C++.',
-      'Developed and fine-tuned Optical Character Recognition (OCR) pipelines for a document summarizer, using Python for rapid prototyping and C++ for performance-critical components to achieve over 95% accuracy.'
+      'Built and own a Golang (Gin, Uber FX) backend on AWS ECS Fargate with PostgreSQL, Redis, S3, and CloudFront, provisioned with Terraform, plus both React/TypeScript frontends.',
+      'Designed a backend behind 180+ REST endpoints over 96 migrations and 40+ tables, with Cognito OAuth, Stripe subscriptions, and an event-driven exam-grading pipeline on AWS SQS.',
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-purple-500 to-pink-500',
   },
   {
-    company: 'EtaFlex',
-    position: 'Junior Software Engineer',
-    period: 'Feb 2024 - Oct 2024',
+    company: 'Azercell Telecom',
+    position: 'Backend Developer',
+    period: 'Jan 2026 to Present',
+    summary: "Core dealer ecosystem for Azerbaijan's largest mobile network operator.",
     achievements: [
-      'Designed and built a real-time package tracking system for a delivery service in Java with GPS integration and ETA calculations, leading to a 30% reduction in customer support calls regarding delivery status.',
-      'Implemented a driver tracking feature using MQTT and the Mosquitto broker, ensuring 100% location data capture in areas with poor connectivity and reducing driver phone battery consumption by 20%.',
-      'Developed a complex delivery state management system using Celery tasks, automating over 98% of state transitions for rush, scheduled, and recurring orders.',
-      'Created a notification system in Java to handle over 50,000 daily delivery status updates with a 99.5% delivery success rate across SMS, email, and push notifications.',
-      'Implemented a package scanning and sorting system in Java, increasing package processing throughput by 25% while reducing sorting errors by 90%.'
+      'Built an internal dealer platform in Golang/Gin that 10,000+ active dealers use daily at sub-second latency.',
+      'Integrated 4+ internal platforms into a unified microservices layer over Kafka and gRPC, cutting complex query latency by 45%, with hierarchy-based RBAC for 500+ administrative accounts.',
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-cyan-500 to-blue-500',
   },
   {
-    company: 'PASHA Bank OJSC',
-    position: 'Backend Developer Trainee',
-    period: 'Apr 2023 - June 2023',
+    company: 'AZAI Tech LLC',
+    position: 'Software Engineer',
+    period: 'Oct 2024 to Dec 2025',
+    location: 'Baku, Azerbaijan',
+    summary:
+      'Core developer across production AI products, owning LLM pipelines from design to deployment.',
     achievements: [
-      'Completed an intensive DevZone training program focused on enterprise-level backend development, honing skills in building robust and scalable web applications with Java and Spring Boot.',
-      'Acquired knowledge and skills in Java SE, OOP principles, Spring Boot, Building RESTful APIs, PostgreSQL, Databases in Web Applications, Unit testing with Spock.',
-      'Applied these skills in a capstone project by developing and testing a RESTful banking API, using Spring Boot and PostgreSQL to manage user accounts, funds transfers, and transaction histories.'
+      'Cut response latency by 40% and reduced inference cost with Redis semantic caching over an embedding-similarity threshold.',
+      'Designed an asynchronous, event-driven architecture on RabbitMQ, reaching 99%+ delivery durability with retry and back-pressure handling.',
+      'Integrated OCR and LLM summary-generation modules into a government digitization platform, reaching 95%+ text-recognition accuracy.',
+    ],
+    icon: <Briefcase className="w-6 h-6" />,
+    color: 'from-green-500 to-teal-500',
+  },
+  {
+    company: 'Ecomart',
+    position: 'Co-founder & CDO',
+    period: 'Jun 2024 to Jan 2025',
+    location: 'Baku, Azerbaijan',
+    summary:
+      'AI-driven inventory management startup focused on sustainability and data-driven decision-making. Awards are listed under Honors.',
+    achievements: [],
+    icon: <Briefcase className="w-6 h-6" />,
+    color: 'from-purple-500 to-cyan-500',
+  },
+  {
+    company: 'Etaflex (San Jose, CA)',
+    position: 'Freelance Backend Engineer',
+    period: 'Jan 2024 to Oct 2024',
+    location: 'Remote',
+    summary:
+      'Delivery management platform automating last-mile logistics for a US-based client.',
+    achievements: [
+      'Built a high-throughput ingestion service in Golang and Kafka for real-time GPS telemetry, enabling sub-second ETA calculations on AWS ECS Fargate.',
+      'Built a fault-tolerant notification microservice in Java handling 50,000+ daily events at 99.5% reliability via AWS SNS/SES with SQS dead-letter queues.',
+    ],
+    icon: <Briefcase className="w-6 h-6" />,
+    color: 'from-cyan-500 to-blue-500',
+  },
+  {
+    company: 'PASHA Bank',
+    position: 'Back End Developer Trainee',
+    period: 'Apr 2023 to Jun 2023',
+    location: 'Baku, Azerbaijan',
+    achievements: [
+      'Completed a DevZone training program in enterprise backend development with Java and Spring Boot.',
+      'Built and tested a RESTful banking API with Spring Boot and PostgreSQL as a capstone project, covering user accounts, funds transfers, and transaction histories.',
     ],
     icon: <Briefcase className="w-6 h-6" />,
     color: 'from-green-500 to-teal-500',
@@ -68,7 +114,7 @@ export default function Experience() {
           viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold text-center mb-16"
         >
-          Work Experience
+          Professional Experience
         </motion.h2>
         
         <div ref={containerRef} className="max-w-5xl mx-auto relative">
@@ -125,11 +171,23 @@ export default function Experience() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center mb-4 text-gray-400">
-                    <Calendar size={16} className="mr-2" />
-                    <span>{exp.period}</span>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4 text-gray-400">
+                    <span className="flex items-center">
+                      <Calendar size={16} className="mr-2" />
+                      <span>{exp.period}</span>
+                    </span>
+                    {exp.location && (
+                      <span className="flex items-center">
+                        <MapPin size={16} className="mr-2" />
+                        <span>{exp.location}</span>
+                      </span>
+                    )}
                   </div>
-                  
+
+                  {exp.summary && (
+                    <p className="text-gray-400 italic mb-4">{exp.summary}</p>
+                  )}
+
                   <ul className="space-y-2">
                     {exp.achievements.map((achievement, i) => (
                       <motion.li 

@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Kamal Aghazada',
-  description: 'Backend developer with a deep expertise in AI-powered systems',
+  description: 'M.S. Computer Science student at George Washington University researching cost-aware LLM inference and agentic LLM systems.',
 };
 
 export default function RootLayout({

@@ -19,19 +19,30 @@ export default function Hero() {
             </span>
           </h1>
           <h2 className="text-xl md:text-2xl text-gray-400 mb-6">
-            Software Developer
+            M.S. Computer Science student, George Washington University
           </h2>
           <p className="text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
-            I build clean, reliable backend systems that fuel business growth.
+            I research cost-aware and verified LLM inference and agentic LLM
+            systems, and I build production backends.
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-purple-500 to-cyan-500 text-white px-8 py-3 rounded-full font-semibold"
-            onClick={() => window.location.href = '#contact'}
-          >
-            Let's Connect
-          </motion.button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <motion.a
+              href="#research"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-purple-500 to-cyan-500 text-white px-8 py-3 rounded-full font-semibold text-center"
+            >
+              View Research
+            </motion.a>
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="border-2 border-purple-500/60 text-white px-8 py-3 rounded-full font-semibold text-center hover:bg-purple-500/10 transition-colors"
+            >
+              Contact
+            </motion.a>
+          </div>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +52,7 @@ export default function Hero() {
         >
           <img
             src="/me.jpg"
-            alt="Profile"
+            alt="Kamal Aghazada"
             className="rounded-full w-64 h-64 md:w-96 md:h-96 object-cover mx-auto border-4 border-purple-500/20"
           />
         </motion.div>

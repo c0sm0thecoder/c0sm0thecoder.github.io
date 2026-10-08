@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const navItems = ['Home', 'About', 'Skills', 'Experience', 'Services', 'Projects', 'Contact'];
+const navItems = ['Home', 'About', 'Research', 'Experience', 'Projects', 'Skills', 'Contact'];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);

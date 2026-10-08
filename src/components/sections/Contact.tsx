@@ -55,6 +55,19 @@ export default function Contact() {
           Get in Touch
         </motion.h2>
         <div className="max-w-2xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            viewport={{ once: true }}
+            className="text-center text-gray-300 mb-8"
+          >
+            Email me at{' '}
+            <a href="mailto:kamalaghzada@gmail.com" className="text-purple-400 hover:text-purple-300 break-all">
+              kamalaghzada@gmail.com
+            </a>
+            , or use the form below.
+          </motion.p>
           <motion.form
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -141,6 +154,7 @@ export default function Contact() {
               className="text-gray-400 hover:text-white"
             >
               <Github size={24} />
+              <span className="sr-only">GitHub: c0sm0thecoder</span>
             </motion.a>
             <motion.a
               href="https://www.linkedin.com/in/kamalaghazada/"
@@ -150,6 +164,7 @@ export default function Contact() {
               className="text-gray-400 hover:text-white"
             >
               <Linkedin size={24} />
+              <span className="sr-only">LinkedIn: kamalaghazada</span>
             </motion.a>
             <motion.a
               href="mailto:kamalaghzada@gmail.com"
@@ -157,6 +172,7 @@ export default function Contact() {
               className="text-gray-400 hover:text-white"
             >
               <Mail size={24} />
+              <span className="sr-only">Email: kamalaghzada@gmail.com</span>
             </motion.a>
           </motion.div>
         </div>
