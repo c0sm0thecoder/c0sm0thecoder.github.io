@@ -8,7 +8,7 @@ const publications = [
     authors: 'K. Aghazada.',
     title:
       'Localized Span Editing: When Does Partial Regeneration Pay? Inference-Time Correction with a Cost-Aware Router.',
-    venue: 'Manuscript in preparation for submission to ICML 2027.',
+    venue: 'Manuscript in preparation for conference submission.',
   },
 ];
 
