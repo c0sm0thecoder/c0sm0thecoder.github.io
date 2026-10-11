@@ -30,6 +30,11 @@ const interests = [
 
 const leadership = [
   {
+    role: "Group Lead",
+    org: "GOUP Alliance, DMV Chapter (meetups across DC, Maryland, and Virginia)",
+    period: "Jul 2026 to Present",
+  },
+  {
     role: "Organizer",
     org: "AWS User Group Baku",
     period: "Sep 2025 to Present",
