@@ -40,16 +40,6 @@ const research = [
     color: 'from-cyan-500 to-blue-500',
   },
   {
-    title: 'LLM Evaluation and Retrieval-Augmented Generation',
-    affiliation: 'AZAI Tech and independent work',
-    period: '2024 to 2026',
-    points: [
-      'Designed and ran experiments with an LLM-as-judge evaluation framework, scoring model outputs on relevance, specificity, accuracy, and grounding to drive systematic model improvement.',
-      'Built an agentic Graph RAG assistant (Neo4j knowledge graph and Pinecone vector store) and used LLM-as-judge evaluation to raise the grounding score from 1.6 to 4.8/5 and the citation rate from 60% to 100% over a no-retrieval baseline.',
-    ],
-    color: 'from-green-500 to-teal-500',
-  },
-  {
     title: 'B.S. Thesis: Document Processing with OCR and LLMs',
     affiliation: 'French-Azerbaijani University (UFAZ), conducted at AZAI Tech',
     period: 'Oct 2024 to Jun 2025',
